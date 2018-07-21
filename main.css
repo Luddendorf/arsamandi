@@ -1,0 +1,201 @@
+main {
+    /*padding-top: 32px; */
+    text-align: center;
+}
+
+#product-overview {
+    background: linear-gradient(180deg, #e6faff 1%, transparent 99%), url("freedom.jpg") left 50% bottom 50%/cover no-repeat border-box;
+    /* background-image: url("freedom.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: left 50% bottom 50%;
+    background-origin: border-box;
+    background-clip: border-box;
+    background-attachment: fixed; */
+    width: 100vw;
+    height: 33vh;
+    margin-top: 2.75rem;
+    /* border: 5px dashed red; */
+    position: relative;
+}
+/* background-attachment: fixed; */
+
+.section-title {
+    color: #2ddf5c;
+    text-align: center;
+}
+
+#product-overview h1 {
+    color: black;
+    font-size: 2.2rem;
+    font-family: 'Anton', sans-serif;
+    position: absolute;
+    width: 100%;
+    left: 5%;
+    top: 3%;
+    margin: 0px;
+    text-align: initial;
+}
+
+/* plan */
+.plan__list {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+
+.plan {
+    background: #d5ffdc;
+    text-align: center;
+    padding: 1rem;
+    margin: 0.5rem;
+    display: inline-block;
+    width: 30%;
+    vertical-align: middle;
+}
+
+.plan--highlighted {
+    background: #19b84c;
+    color: white;
+    box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, 0.8);
+}
+
+.plan__annotation {
+    background: white;
+    color: #19b84c;
+    padding: 0.5rem;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.plan__title {
+    color: #0e4f1f;
+}
+
+.plan__price {
+    color: #858585;
+}
+
+.plan--highlighted .plan__title {
+    color: white;
+}
+
+.plan--highlighted .plan__price {
+    color: #0e4f1f;
+}
+
+.plan__features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.plan__feature {
+    margin: 0.5rem 0;
+}
+
+/* key features */
+#key-features {
+    background: #ff1b68;
+    margin-top: 5rem;
+    padding: 1rem;
+}
+
+#key-features .section-title {
+    color: white;
+    margin: 2rem;
+    text-align: center;
+}
+
+.key_feature_list {
+   list-style: none;
+   margin: 0px;
+   padding: 0px;
+   text-align: center;
+}
+
+.key-feature {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+
+.key-feature__image {
+    background: #ffcede;
+    width: 128px;
+    height: 128px;
+    border: 2px solid #424242;
+    border-radius: 50%;
+    margin: 0px auto;
+}
+
+.image_one__class {
+    background: url("tol.jpg");
+    background-size: cover;
+    background-origin: content-box;
+    background-clip: content-box;
+}
+.image_two__class {
+    background: url("vitaliy.jpg");
+}
+.image_three__class {
+    background: url("redhead.jpg");
+}
+
+
+.key-feature_description {
+   text-align: center;
+   font-weight: bold;
+   color: white;
+   font-size: 1.3rem;
+}
+
+/* modal */
+.modal {
+    position: fixed;
+    display: none;
+    z-index: 200;
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    background: white;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.modal__title {
+    text-align: center;
+    margin: 0 0 1rem 0;
+}
+
+.modal__actions {
+    text-align: center;
+}
+
+.modal__action {
+  border: 1px solid #0e4f1f;
+  background: #0e4f1f;
+  text-decoration: none;
+  color: white;
+  font: inherit;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.modal__action:hover,
+.modal__action:active {
+    background: #2ddf5c;
+    border-color: #2ddf5c;
+}
+
+.modal__action--negative {
+    background: red;
+    border-color: red;
+}
+
+.modal__action--negative:hover,
+.modal__action--negative:active {
+    background: #ff5454;
+    border-color: #ff5454;
+}
