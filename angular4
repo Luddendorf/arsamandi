@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+    <h3>I am the component </h3>
+     <hr>
+      <app-servers></app-servers >
+    </div>
+    </div>
+  </div>
+  
+  
+  h3 { color: darkblue;
+  }
+  
+  @Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: [./app.component.css'],
+    styles: [`h3 {color: dodgerblue; }`]
+  })
