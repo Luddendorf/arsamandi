@@ -1,0 +1,25 @@
+<section>
+ <a href='#' class='btn buy-button'>
+   <span class="top content">Go here now!</span>
+   <span class="botton content>On Sale 1 USD</span>
+ </a>
+</section>
+
+
+<!-- Set initial position of each span -->
+
+<div class='modal-overlay'></div>
+
+<div class='modal'>
+ <div class='modal-header'>
+ <a class='modal-close'>&times;</a>
+ <h3>Sweet Lands</h3>
+ </div>
+ 
+ <div class='modal-content'>
+ <form class='form' action=''>
+ 
+ </form>
+</div>
+</div>
+
