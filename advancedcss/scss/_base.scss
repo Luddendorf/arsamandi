@@ -1,0 +1,264 @@
+html {
+  font-size: 62.5%;
+
+/* 
+  // unnecessary because the previous query does the same:
+  @include respond(phone) {
+    font-size: 50%;
+  } */
+  
+  @include respond(tab-land) { // larger first  is width < 1200?
+    font-size: 56.25%; // 1rem should be 9px, so 9/16 = 56.25%
+  }
+  
+  @include respond(tab-port) { //smaller last   is width < 900?
+    font-size: 50%; // 1rem should be 8px, so 8/16 = 50%
+  }
+  
+  
+  @include respond(big-desktop) {
+    font-size: 75%; // 1rem should be 12, so 12/16 = 75%
+  }
+
+}
+ // NOTA BENE
+body {
+  box-sizing: border-box;
+  padding: 3rem;
+  
+  @include respond(tab-port) {
+    padding: 0;
+  }
+}
+
+
+
+/*
+_story.scss
+
+@media (max-width: 600px) {
+  width: 50%;
+}
+*/
+
+_mixin.scss
+
+//Media query manager
+
+/*
+0 - 600px:   - phone
+600 - 900px:  - tablet portrait
+900 - 1200px: - tablet landscape
+[1200 - 1800] - our desktop first approach
+1800px+:      - big desktop
+*/
+/*
+@mixin respond-phone {
+  @media (max-width: 600px) { @content };
+}
+*/
+/*
+$breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+ORDER: Base + typography > general layout + grid > page layout > components
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) { @content };  //600px
+  }
+   @if $breakpoint == tab-port {
+    @media (max-width: 56.25em) { @content }; // 900px
+  }
+   @if $breakpoint == tab-land {
+    @media (max-width: 75em) { @content }; // 1200px
+  }
+   @if $breakpoint == big-desktop {
+    @media (min-width: 112.5em) { @content }; // 1800px
+  }
+  
+}
+
+_typography.scss
+
+.heading-primary {
+  
+  &--main {
+  
+  
+    @include respond(phone) {
+      letter-spacing: 1rem;
+      font-size: 5rem;
+     }
+  } 
+  
+  &--sub {
+    
+    @include respond(phone) {
+      letter-spacing: 0.5rem;
+     }
+  }
+ 
+}
+
+.heading-secondary {
+   
+   @include respond(tab-port) {
+     font-size: 3rem;
+   }
+   
+   @include respond(phone) {
+     font-size: 2.5rem;
+   }
+   
+}
+
+
+_variables.scss
+
+$gutter-vertical-small: 6rem;
+
+
+_grid.scss //layout
+
+.row {
+  max-width: $grid-width;
+  margin: 0 auto;
+
+   &:not(:last-child) {
+     margin-bottom: $gutter-vertical;
+     
+     @include respond(tab-port) {
+       margin-bottom: $gutter-vertical-small;
+     }
+   }
+
+@include respond(tab-port) {
+  max-width: 50rem;
+  padding: 0 3rem;
+}
+
+
+[class^="col-"] {
+   float: left;
+   
+   &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+      
+      @include respond(tab-port) {
+        margin-right: 0;
+        margin-bottom: $gutter-vertical-small;
+      }
+    }
+    
+    @include respond(tab-port) {
+      width: 100% !important;
+    }
+
+ }
+
+
+__header.scss  //layout
+
+.header {
+
+  @include respond(phone) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100$ 85vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  }
+
+  &__logo-box {
+  
+  }
+
+
+}
+
+
+_navigation.scss //layout
+
+.navigation {
+  
+  &__button {
+     
+     
+     @include respond(tab-port) {
+       top: 4rem;
+       right: 4rem;
+     }
+     
+     @include respond(phone) {
+       top: 3rem;
+       right: 3rem;
+     }
+    
+  }
+  
+  &__background {
+  
+     @include respond(tab-port) {
+       top: 4.5rem;
+       right: 4.5rem;
+     }
+     
+      @include respond(phone) {
+       top: 3.5rem;
+       right: 3.5rem;
+     }
+     
+  }
+
+}
+
+
+_footer.scss  //layout
+
+
+.footer {
+  
+  @include respond(tab-port) {
+    padding: 8rem 0;
+   }
+  
+  
+  &__navigation {
+    
+    @include respond(tab-port) {
+       width: 100%;
+       text-align: center;
+    }
+    
+  }
+  
+  &__copyright {
+    
+    
+    @include respond(tab-port) {
+       width: 100%;
+       float: none;
+    }
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
