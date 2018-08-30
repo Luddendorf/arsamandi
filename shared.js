@@ -2,34 +2,72 @@ var backdrop = document.querySelector('.backdrop');
 
 var modal = document.querySelector('.modal');
 
+var modalNoButton = document.querySelector(".modal__action--negative");
+
 var selectPlanButtons = document.querySelectorAll('.plan button');
 
 var toggleButton = document.querySelector('.toggle-button');
 
 var mobileNav = document.querySelector('.mobile-nav');
 
+var ctaButton = document.querySelector('main-nav__item--cta');
+//console.dir(backdrop.style.backgroundImage);
+
+//console.dir(backdrop.style['background-image']);
 
 //backdrop.style.display = 'block';
 for (var i = 0; i < selectPlanButtons.length; i++) {
   selectPlanButtons[i].addEventListener('click', function() {
+    //modal.style.display = 'block';
+    //backdrop.style.display = 'block';
+    // modal.className = 'open';
     modal.classList.add('open');
-    backdrop.classList.add('open');
+    backdrop.style.display = 'block';
+    setTimeout(function() {
+      backdrop.classList.add('open');
+    }, 10);
   });
 }
 
+// console.dir(backdrop);
+
 backdrop.addEventListener('click', function() {
-	mobileNav.style.display = 'none';
+	//mobileNav.style.display = 'none';
+	mobileNav.classList.remove('open');
 	closeModal();
 });
 
-// modalNoButton.addEventListener('click', closeModal);
+
+
+if(modalNoButton) {
+ modalNoButton.addEventListener('click', closeModal);
+} 
 
 function closeModal() {
+	//backdrop.style.display = "none";
+	//modal.style.display = "none";
+if(modal) {
   modal.classList.remove('open');
+          }
   backdrop.classList.remove('open');
+  setTimeout(function() {
+     backdrop.style.display = 'none';
+  }, 1000);
 }
 
 toggleButton.addEventListener('click', function() {
-   mobileNav.style.display = 'block';
+   //mobileNav.style.display = 'block';
+   //backdrop.style.display = 'block';
+   mobileNav.classList.add('open');
    backdrop.style.display = 'block';
+   setTimeout(function() {
+      backdrop.classList.add('open');
+   }, 10);
 });
+
+/*
+ctaButton.addEventListener('animationstart', function(event) {
+   console.log('Animations started', event);
+}); 
+  animationiteration animationend
+*/
