@@ -142,6 +142,39 @@ export class RecipeService {
     
     }
     
+
+////////////     ROUTING  ////////////////
+
+// app.comnponent.html  ///////////
+<div></div>
+
+<app-home></app-home>
+<app-users></app-users>
+<app-servers></app-servers>
+
+//   app.module.ts /////////////
+import { Routes, RouterModule } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'servers', component: ServersComponent }
+];
+
+
+@NgModule({
+   imports: [
+     RouterModule.forRoot()
+   ]
+})
+
+
+
+
+
+
+
+
     
     
     
