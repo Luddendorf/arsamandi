@@ -146,7 +146,13 @@ export class RecipeService {
 ////////////     ROUTING  ////////////////
 
 // app.comnponent.html  ///////////
-<div></div>
+<li><a routerLink="/">Home</a></li>
+<li><a routerLink="/servers">Servers</a></li>
+<li><a [routerLink]="'/users'">Users</a></li>
+
+<div>
+  <router-outlet></router-outlet>
+ </div>
 
 <app-home></app-home>
 <app-users></app-users>
@@ -161,25 +167,208 @@ const appRoutes: Routes = [
   { path: 'servers', component: ServersComponent }
 ];
 
-
 @NgModule({
    imports: [
      RouterModule.forRoot()
    ]
 })
 
+import { Routes, RouterModule } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'servers', component: ServersComponent },
+  { path: 'item/:id', component: ItemCompnent },
+  { path: '**', component: NotFoundComponent }
+  ];
+
+ 
+imports: [
+  RouterModule.forRoot(appRoutes)
+  ]
+
+////  app.component.html //////
+<a routerLink="">Main page</a>
+<a routerLink="/about"
+   [routerLinkActiveOptions]="{exact: true}">About the site</a>
+<a [routerLink]="['item', '5']" routerLinkActive="active">Item 5</a>
+<a [routerLink]="['item', '8']" routerLinkActive="active">Item 8</a>
+
+<li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+><a routerLink="">Main</a></li>
 
 
+export class ItemComponent {
+ 
+   private id: number;
+   private subscription: Subscription;
+    constructor(private activateRoute: ActivatedRoute) {
+      
+      this.subscription = activateRoute.params
+        .subscribe(params => this.id = params['id']);
+    }
+}
+
+// servers.component.html ////////
+
+<a routerLink="/servers">Reload Page</a>
+
+<a routerLink="servers"></a>
+
+<a routerLinkActive="active"
+   [routerLinkActiveOptions]="{exact: true}"
+   routerLink="/">Main</a>
+<a routerLinkActive="active"
+   routerLink="/recipes">Recipes</a>
+<a routerLinkActive="active"
+   routerLink="/ingreds">Ingreds</a>
 
 
+// home.component.html //////////////
 
+<button (click)="onLoadServers()"
+>Load Servers</button>
 
+<button (click)="onReload()"
+>Reload Page</button>
 
+// home.component.ts //////////////
+import { Router } from '@angular/router';
+
+export class HomeComponent implements OnInit {
+
+constructor(private router: Router) {}
+  
+onLoadServers() {
+  
+  this.router.navigate(['/servers']);
+}
+
+ onReload() {
+   
+   this.router.navigate(['servers'], {relativeTo: this.route});
+ }
+}
     
+
+// app.module.ts //////////////
+import { NgModule } from '@angular/core';
+
+ const myRoutes = [
+   { path: '', component: HomeComponent },
+   { path: 'users',
+     data: { title: 'Users',
+             anotherParam: 'something else' },
+     component: UsersComponent },
+   { path: 'users/:id', component: UserComponent }
+   ];
+
+@NgModule({
+  imports: [
+   RouterModule.forRoot(myRoutes. {useHash: true})
+   ]
+})
+
+// app.component.ts   ////////////////
+ export class AppComponent {
+  userId = 15; 
+ }
     
+
+// app.component.html ////////////////
+
+<a routerLink="" routerLinkActive="active"
+   [routerLinkActiveOptions]="{exact: true}">Home</a>
+
+
+<a routerLink="users"
+   [queryParams]="{q: 1111}"
+routerLinkActive="active">Users</a>
+
+<a [routerLink]="['users', uderId]" routerLinkActive="active">User {{ userId }}</a>
+
+<div>
+  <router-outlet></router-outlet>
+</div>
+
+
+// users.component.ts /////////
+export class UsersComponent implements OnInit {
+ 
+  constructor(private actRoute: ActivatedRoute) {
     
+    this.route.queryParamMap.subscribe(params => console.log(params));
+    this.route.data.subscribe(data => console.log(data));
+  }
+}
+
+
+   
+// user.component.ts /////////
+export class UserComponent implements OnInit {
+  
+ constructor(private actRoute: ActivatedRoute) {
+   
+   this.route.paramMap.subscribe(
+      params => console.log(params)
+   );
+ } 
+}
+
+<button (click)="goToUser(17)"
+>Go!</button>
+
+// home.component.ts //////////////
+export class HomeComponent implements OnInit {
+  
+  constructor(private _router: Router,
+              private _actRoute: ActivatedRoute) {}
+  
+  goToUser(userId) {
     
-    
+    this._router.navigate(['users', userId], { skipLocationChange: true, relativeTo: this._actRoute})
+      .then(() => {
+       
+    });
+    this._router.navigateByUrl('users/' + userId, { skipLocationChange: true });
+  }
+}
+
+<button (click)="onReload()"
+>Reload Page</button>
+
+constructor(private router: Router,
+            private actRoute: ActivatedRoute) {}
+
+onReload() {
+  
+  this.router.navigate(['servers'], {relativeTo: this.actRoute});
+}
+
+
+// app.module.ts //////
+
+const appRoutes: Routes = {
+  { path: 'users/:id', component: UsersComponent }
+} 
+
+
+// users.component.ts ///////
+export class UsersComponent {
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
     
 
 
