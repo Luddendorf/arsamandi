@@ -47,6 +47,8 @@ export class ShoppingListService {
    { path: ':id', component: ServerComponent },
    { path: ':id/edit', component: EditServerComponent },
 ] },
+{ path: 'not-found', component: PageNotFoundComponent },
+{ path: '**', redirectTo: '/not-found' }
 
 
 
@@ -62,7 +64,8 @@ export class ShoppingListService {
 // user.component.ts /////////////
 export class UserComponent implements OnInit, OnDestroy {
   
-  paramsSubscription: Subscription;
+  
+  Subscription: Subscription;
   
  ngOnInit() {
    this.user = {
@@ -85,7 +88,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
 // servers.component.html //////////////
 <a [routerLink]="['/servers', server.id]"
-   [queryParams]="{allowEdit: '1'}"
+   [queryParams]="{allowEdit: server.id === 3 ? '1' : '0' }"
    [fragment]="loading"
 ></a>
 
@@ -97,7 +100,8 @@ export class UserComponent implements OnInit, OnDestroy {
 </div>
 
 // server.component.html //////////
-<button>Edittton>
+<button (click)="onEdit()"
+>Edit Server</button>
 
 
 
@@ -120,15 +124,28 @@ export class HomeComponent implements OnInit {
   }
 }
 
+// edit.server.component.html //////////////
+<h4 *ngIf="!allowEdit"
+>Your are not allowed to edit!</h4>
+<div *ngIf="allowEdit">Some info</div>
+
 // edit.server.component.ts //////////
-export class EditServerComponent implements OnInit {
+export class EditServerComponent implements OnInit, CanDeactivateGuard {
+  
+  allowEdit = false;
+  
+  changesSaved = false;
   
   constructor(private servService: ServersService,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private router: Router) {}
   
   ngOnInit() {
     
-    this.route.queryParams.subscribe();
+    this.route.queryParams.subscribe(
+       (queryParams: Params) => {
+          this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
+       });
     this.route.fragment.subscribe();
     
      log(this.route.snapshot.queryParams);
@@ -139,6 +156,37 @@ export class EditServerComponent implements OnInit {
     
     this.servService.updateServer(this.updateServer, {name: this.serverName,
                                                          status: this.serverStatus});
+    
+    this.changesSaveds = true;
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
+  
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    
+    if(!this.allowEdit){
+      return true;
+    }
+    
+if(this.serverName !== this.server.name || this.serverStatus !== this.server.status) {
+      
+    }
+  }
+}
+
+// can-deactivate-guard.service.ts //////////////////////////////////////
+export interface CanComponentDeactivate {
+   canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+}
+
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+  
+  canDeactivate(component: CanComponentDeactivate,
+                currentRoute: ActivatedRouteSnapshot,
+                currentState; RouterStateSnapshot,
+                nextState?: RouterStateSnapshot):
+  Observable<boolean> | Promise<boolean> | boolean {
+     
+    return component.canDeactivate();
   }
 }
 
@@ -148,7 +196,8 @@ export class ServerComponent implements OnInit {
   server: {id: number, name: string, status: string};
   
   constructor(private servService: ServersService,
-              private actRoute: ActivatedRoute) {}
+              private actRoute: ActivatedRoute,
+              private router: Router) {}
   
   ngOnInit() {
     
@@ -162,8 +211,138 @@ export class ServerComponent implements OnInit {
           this.server = this.servService.getServer(+params['id']);
         });
   }
+  
+  onEdit() {
+    
+    this.router.navigate(['edit'], { relativeTo: this.route,
+      queryParamsHandling: 'preserve' });
+  }
+  
 }
-                                              
+   ng g c page-not-found
+
+// app-routing.module.ts /////////////////
+import { NgModule } from '@angular/core';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'users', canActivate: [AuthGuardService],
+                   canActivateChild: [AuthGuard],
+                   canDeactivate: [CanDeactivateGuard]
+                   component: UsersComponent },
+  { path: '**', redirectTo: '/not-found'}
+];
+
+@NgModule({
+    imports: [
+      RouterModule.forRoot(appRoutes)
+    ],
+    exports: [
+      RouterModule
+    ],
+    providers: [AuthService, AuthGuard, CanDeactivateGuard],
+ })
+
+export class AppRoutingModule {
+ 
+}
+
+// app.module.ts ///
+import { AppRoutingModule } from './app-routing.module';
+
+@NgModule({
+  imports: [AppRoutingModule],
+  providers: [ServersService, AuthService, AuthGuard]
+})
+
+// auth-guard.service.ts ////////
+import { CanActivate } from '@angular/router';
+
+@Injectable()
+export class AuthGuardService implements CanActivate, CanActivateChild {
+  
+  constructor(private authService: AuthService,
+              private router: Router) {}
+  
+  canActivate(route: ActivatedRouteSnapshot,
+              state: RouterStateSnapshot):
+  Observable<boolean> | Promise<boolean> | boolean {
+  
+   return this.authService.isAuthenticated()
+       .then((authenticated: boolean) => {
+          if(authenticated) {
+            return true; 
+          } else {
+   this.router.navigate(['/']);
+          }
+    });
+  }
+  
+  
+  canActivateChild(route: ActivatedRouteSnapshot,
+                   state: RouterStateSnapshot):
+   Observable<boolean> | Promise<boolean> | boolean {
+    
+     return this.canActivate(route, state);
+  }
+  
+}
+
+// auth.service.ts /////////////
+export class AuthService {
+ 
+   loggedIn = false;
+  
+  isAuthenticated() {
+    
+    const promise = new Promise(
+      (resolve, reject) => {
+          setTimeout(() => {
+            resolve(this.loggedIn)
+          }, 800);
+      });
+    return promise;
+  }
+  
+  login() {
+    this.loggedIn = true;
+  }
+  
+  logout() {
+    this.loggedIn = false;
+  }
+}
+
+// home.component.html //////////
+<button (click)="onLogin()"
+>Login</button>
+<button (click)="onLogout()"
+>Logout</button>
+
+// home.component.ts ////////////
+export class HomeComponent implements OnInit {
+  
+ constructor(private router: Router,
+             private authService: AuthService) {}
+   
+ onLogin() {
+   this.authService.login();
+ }
+  
+ onLogout() {
+   this.authService.logout(); 
+ }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
