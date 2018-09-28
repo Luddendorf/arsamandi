@@ -382,9 +382,23 @@ export class ErrorPageComponent implements OnInit {
 
 // error-page.component.html //////////
 
+{ path: 'search', component: SearchComponent }
+{ path: 'search/:term', component: SearchComponent }
 
+class SearchComponent {
 
+constructor(private route: ActivatedRoute) {
+  
+  this.route.params.subscribe(params => this.doSearch(params['term']));
+}
 
+   doSearch(term: string) {
+     
+     this.loading = true;
+     this.itunes.search(term).then(_ => this.loading = false)
+   }
+  
+}
 
 
 
