@@ -132,6 +132,7 @@ export class HomeComponent implements OnInit {
 // edit.server.component.ts //////////
 export class EditServerComponent implements OnInit, CanDeactivateGuard {
   
+  paramsSubscription: Subscription;
   allowEdit = false;
   
   changesSaved = false;
@@ -147,6 +148,21 @@ export class EditServerComponent implements OnInit, CanDeactivateGuard {
           this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
        });
     this.route.fragment.subscribe();
+    
+    const id = +this.route.snapshot.params['id'];
+          
+    this.server = this.serversService.getServer(id);
+    
+    // Subscribe route params to update the id if params change:
+    this.paramsSubscription = this.route.params
+         .subscribe(
+          (params: Params) => {
+            this.id = +params['id'];
+          });
+    
+    
+    this.serverName = this.server.name;
+    this.serverStatus = this.server.status;
     
      log(this.route.snapshot.queryParams);
      log(this.route.snapshot.fragment);
@@ -167,10 +183,19 @@ export class EditServerComponent implements OnInit, CanDeactivateGuard {
       return true;
     }
     
-if(this.serverName !== this.server.name || this.serverStatus !== this.server.status) {
-      
+if((this.serverName !== this.server.name || this.serverStatus !== this.server.status)
+   && !this.changesSaved) {
+     
+     return confirm('Do you want to discard the change?');
+} else {
+     return true;
     }
   }
+  
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+  }
+  
 }
 
 // can-deactivate-guard.service.ts //////////////////////////////////////
@@ -333,6 +358,33 @@ export class HomeComponent implements OnInit {
    this.authService.logout(); 
  }
 }
+
+{ path: 'not-found', component: ErrorPageComponent,
+    data: {message: 'Page not found!'} }
+
+// error-page.component.ts /////////
+export class ErrorPageComponent implements OnInit {
+  
+  errorMessage: string;
+  
+  constructor(private route: ActivatedRoute) {}
+  
+  ngOnInit() {
+    this.errorMessage = this.route.snapshot.data['message'];
+    
+    this.route.data.subscribe(
+       (data: Data) => {
+        this.errorMessage = data['message'];
+       });
+  }
+  
+}
+
+// error-page.component.html //////////
+
+
+
+
 
 
 
