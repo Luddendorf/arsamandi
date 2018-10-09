@@ -179,11 +179,19 @@ class AppComponent {
    this.http.delete(url, {searchParams}).subscribe(res => log(res.json()));
   }
   
-  
+  getRecipes() {
+    this.httpClient.get(url)
+     .subscribe(
+         (response: Response) => {
+             const recipes: Recipe[] = response.json();
+             this.recipeService.setRecipes(recipes);
+                                                         });
+                                                         }
   
   
 }
 
+                
 
 
 
