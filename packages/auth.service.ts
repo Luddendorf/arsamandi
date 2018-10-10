@@ -1,10 +1,14 @@
 
 // auth.service.ts /////////////////////////////////////////////////
 import * as firebase from 'firebase';
+import { Router } from '@angular/router';
 
+@Injectable()
 export class AuthService {
 
   token: string;
+  
+  constructor(private router: Router) {}
   
   signupUser(email: string, password: string) {
     
@@ -19,6 +23,9 @@ export class AuthService {
     firebase.auth().signInWithEmailAndPassword(email, password)
        .then(
          response => {
+           
+           this.router.navigate(['/']);
+           
            firebase.auth().currentUser.getToken()
              .then(
                (token: string) => this.token = token
@@ -39,6 +46,17 @@ export class AuthService {
      return this.token; 
   }
   
+  isAuthenticated() {
+    return this.token != null;
+  }
+  
+  logout() {
+    
+    firebase.auth().signOut();
+    
+    this.token = null;
+  }
+  
 }
 
 // data-storage.service.ts /////////////////////////////////////////////////
@@ -46,13 +64,22 @@ export class DataStorageService {
   
   constructor(private authService: AuthService) {}
   
+  storeRecipes() {
+   
+    const token = this.authService.getToken();
+    
+    return this.http.put('https://firebase.com/.json?auth=' + token,
+        this.recipeService.getRecipes());
+    
+  }
+  
   getRecipes() {
    
    const token = this.authService.getToken();
      
    this.http.get('https://firebase.com/.json?auth=' + token)
     .map(
-        
+        )
   }
 
 }
@@ -135,8 +162,17 @@ export class DataStorageService {
  
  // header.component.html ///////////////////////////////////////////////////
  
- <li routerLink="/signin"
- >Sign in</li>
+  <ng-template [ngIf]="!authService.isAuthenticated()">
+    <li routerLink="/signup">Sign un</li>
+    <li routerLink="/signin">Sign in</li>
+  </ng-template>
+
+<li><a style="cursor: pointer;"
+       (click)="onLogout()"
+       *ngIf="authservice.isAuthenticated()"
+>Logout</a></li>
+<li *ngIf="authService.isAuthenticated()">
+</li>
  
  {
    "rules": {
@@ -145,9 +181,20 @@ export class DataStorageService {
    }
  }
  
+// header.component.ts ///////////////////////////////////////////////////
  
+ export class HeaderComponent {
+   
+  constructor(private dataStorageService: DataStorageService,
+              private authService: AuthService) {}
+   
+   onLogout() {
+      this.authService.logout();
+   }
+   
+ }
  
- 
+// auth.fgg////////////////////////////////////////////////
  
  
  
