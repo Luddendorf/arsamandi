@@ -87,7 +87,7 @@ export class DataStorageService {
 
 
 // app.module.ts ////////////////////////////////////////////////////
- providers: [AuthService]
+ providers: [AuthService, AuthGuard]
  
  
  // signup.component.ts //////////////////////////////////////////
@@ -157,7 +157,10 @@ export class DataStorageService {
  
  // app-routing.module.ts //////////////////////////////////////////////////
  import { SigninComponent } from './auth/signin/signin.component';
+ import { AuthGuard } from './auth/auth-guard.service';
  
+ { path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard] },
+ { path: ':id/edit', component: RecipeEditComponent, canActivate: [AuthGuard] },
  { path: 'signin', component: SigninComponent },
  
  // header.component.html ///////////////////////////////////////////////////
@@ -194,8 +197,22 @@ export class DataStorageService {
    
  }
  
-// auth.fgg////////////////////////////////////////////////
- 
+// auth-guard.service.ts ////////////////////////////////////////////////
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  
+  constructor(private authService: AuthService) {}
+  
+  canActivate(route: ActivatedRouteSnapshot,
+              state: RouterStateSnapshot) {
+    
+    return this.authService.isAuthenticated();
+  }
+  
+}
  
  
  
