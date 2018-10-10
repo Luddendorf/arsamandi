@@ -2,13 +2,15 @@
 
 // app.module.ts //////////////////////////////////////////////////////////
 import { RecipesModule } from './recipes/recipes.modules';
+import { SharedModule } from './shared/shared.module';
 
 declarations: [
   DropdownDirective
 ],
 imports: [
   BrowserModule,
-  RecipesModule
+  RecipesModule,
+  SharedModule
 ]
 
 
@@ -25,6 +27,7 @@ import { RecipeDetailComponent }  from './recipe-detail/recipe-detail.component'
 import { RecipeItemComponent }  from './recipe-list/recipe-item/recipe-item.component';
 // import { DropdownDirective } from '../shared/dropdown.directive';
 import { RecipesRoutingModule } from './recipes-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { RecipesRoutingModule } from './recipes-routing.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RecipesRoutingModule
+    RecipesRoutingModule,
+    SharedModule
   ]
 })
 
@@ -74,9 +78,26 @@ const recipesRoutes: Routes = [
 })
 export class RecipesRoutingModule {
   
-  
 }
 
+// shared/shared.modules.ts /////////////////////////////////////////////////////
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { DropdownDirective } from './dropdown.directive';
+
+@NgModule({
+  declarations: [
+     DropdownDirective
+  ],
+  exports: [
+    CommonModule,
+    DropdownDirective
+  ]
+})
+
+export class SharedModule {
+}
 
 
 
