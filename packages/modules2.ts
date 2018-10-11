@@ -90,11 +90,19 @@ export class AuthRoutingModule {}
 
 // app-routing.module.ts ///////////////////////////////////////////////
 import { HomeComponent } from './home/home.component';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
   const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'recipes', loadChildren: './recipes/recipe.module#RecipesModule' },
   ];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
+  ]
+})
+
 
 // recipes-routing.module.ts ////////////////////////////////////////
 
@@ -107,6 +115,16 @@ import { HomeComponent } from './home/home.component';
 
 // home.component.html ////////////////////////////////////////////
 <h2>Welcome to the recipe book!</h2>
+
+
+ng build --prod --base-href /my-app/
+
+NB
+export.com/my-app
+
+// index.html /////////////////////////////////////////////////////////
+
+<base href="/my-app/">
 
 
 
