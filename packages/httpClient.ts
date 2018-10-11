@@ -18,13 +18,21 @@ storeRecipes() {
   const token = this.authService.getToken();
   
   return this.httpClient.put('http://.com/rec.json?auth=' + token,
-     this.recipeService.getRecipes());
+     this.recipeService.getRecipes(), {
+        body:
+        headers:
+  });
   }
   
   getRecipes() {
     const token = this.authService.getToken();
     
-    this.httpClient.get('http/rec.json?auth=' + token)
+  // this.httpClient.get<Recipe[]>('http/rec.json?auth=' + token)
+    
+    this.httpClient.get('http/rec.json?auth=' + token, {
+       observe: 'response',
+       responseType: 'text'
+    })
       .map(
         (recipes: Recipe[]) => {
           for(let recipe of recipes) {
