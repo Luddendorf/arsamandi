@@ -6,11 +6,11 @@ npm install --save @ngrx/store-devtools
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 
 imports: [
   StoreRouterConnectingModule,
-  !environment.production SoreDetoolsModule.instrument()
+  !environment.production ? StoreDetoolsModule.instrument() : []
 ]
 
 // environments/environment.ts ///////////////////////////////////
@@ -18,3 +18,9 @@ imports: [
  export const environment = {
    production: false
  };
+
+
+// app-routing.module.ts /////////////////////////////////////////////////
+const appRoutes: Routes = [
+  { }
+];
