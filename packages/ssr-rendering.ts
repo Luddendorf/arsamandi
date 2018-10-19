@@ -1,5 +1,7 @@
 npm install --save-dev @angular/platform-server
+http://stepansuvorov.com/blog/2017/03/server-side-rendering-angular4/
 
+https://itnext.io/server-side-rendering-ssr-in-angular-5-the-simplest-and-quickest-ssr-approach-34cf53224f32
 // app.module.ts /////////////////////////////////////////////////
 
 imports: [
