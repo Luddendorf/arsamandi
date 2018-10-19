@@ -107,20 +107,57 @@ ng build --prod --app 1
   "build:ssr": "ng build --prod && ng build --prod --app 1 --output-hashing=none"
 }
 
+npm install --save express
 
+npm install --save @nguniversal/express-engine
 
+npm install --save @nguniversal/module-map-ngfactory-loader
 
+// server.js ////////////////////////////////////////////////////////////////////////
+'use strict';
 
+require('zone.js/dist/zone-node');
+require('reflect-metadata');
 
+const express = require('express');
 
+const ngUniversal = require('@nguniversal/express-engine');
 
+const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
 
+const { AppServerModuleNgFactory, LAZY_MODULE_MAP }
+   = require('./dist-server/main.bundlle');
 
+function angularRouter(req, res) {
+  res.render('index', {req, res}); 
+}
 
+const app = exress();
 
+app.engine('html', ngUniversal.ngExpressEngine({
+    bootstrap: AppServerModuleFactory,
+    providers: [
+      provideModuleMap(LAZY_MODULE_MAP)
+    ]
+}));
 
+app.set('view engine', 'html');
 
+app.set('views', 'dist');
 
+app.get('/', angularRouter);
+
+app.use(express.static(`${__dirname}/dist`));
+
+app.get('*', angularRouter);
+
+app.listen(3000, () => {
+    console.log('Listening on port 3000');
+});
+
+// node server.js
+
+deploy : dist, dist-server, package.json, server.js 
 
 
 
