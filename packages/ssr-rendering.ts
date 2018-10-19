@@ -100,12 +100,34 @@ enableProdMode();
   "scripts": []
 }
 
+ng build --prod --app 1
 
-
-
-
-
-
-
-
+  // package.json //////////////////////////////////////////////////////////////////
+  "build": "ng build",
+  "build:ssr": "ng build --prod && ng build --prod --app 1 --output-hashing=none"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
