@@ -42,25 +42,6 @@ export class MaterialModule {}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <button mat-button>Click me</button>
 
 <button mat-raised-button
