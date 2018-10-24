@@ -100,6 +100,7 @@
 			<li><a routerLink="/signup">Signup</a></li>
 			<li><a routerLink="/login">Login</a></li>
 			<li><a routerLink="training">Training</a></li>
+			<li><a routerLink="training">Logout</a></li>
 		</ul>
 
 	 </div>
