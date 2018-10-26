@@ -205,7 +205,7 @@ export class AppComponent {
 <mat-sidenav-container>
   <mat-sidenav #sidenav
                 role="navigation">
-    <p>I am a denav!</p>
+   
   </mat-sidenav>
   <mat-sidenav-content>
     <button (click)="sidenav.toggle()"
@@ -268,23 +268,23 @@ mat-sidenav {
 
  <mat-nav-list>
       <a mat-list-item routerLink="/signup"
-         (click)="sidenav.close()">
+         (click)="onClose()">
         <mat-icon>face</mat-icon>
         <span class="nav-caption">Signup</span>
       </a>
       <a mat-list-item routerLink="/login"
-         (click)="sidenav.close()">
+         (click)="onClose()">
         <mat-icon>input</mat-icon>
         <span class="nav-caption"></span>
       </a>
       <a mat-list-item routerLink="/training"
-         (click)="sidenav.close()">
+         (click)="onClose()">
         <mat-icon>fitness_center</mat-icon>
         <span class="nav-caption">Training</span>
       </a>
       <mat-list-item>
         <button mat-icon-button
-                (click)="sidenav.close()">
+                (click)="onClose()">
           <mat-icon>eject</mat-icon>
           <span class="nav-caption">Logout</span>
         </button>
@@ -293,6 +293,33 @@ mat-sidenav {
 
 // sidenav-list.component.css /////////////////////////////////////////////
 
+a {
+    text-decoration: none;
+    color: white;
+    }
+ 
+a:hover,
+a:active {
+    color: lightgray;
+    }
+
+// sidenav-list.component.ts ////////////////////////////////////////////
+import { EventEmitter, Output } from '@angular/core';
+
+export class SidenavListComponent implements OnInit {
+  
+	@Output() closeSidenav = new EventEmitter<void>();
+	
+	constructor() {}
+	
+	onClose() {
+	  
+		this.closeSidenav.emit();
+	}
+}
+
+
+// header.component.css //////////////////////////////////////////////////
 a {
     text-decoration: none;
     color: white;
@@ -312,17 +339,6 @@ a:active {
 .nav-caption {
     display: inline-block;
     padding-left: 6px;
-    }
-
-// header.component.css //////////////////////////////////////////////////
-a {
-    text-decoration: none;
-    color: white;
-    }
- 
-a:hover,
-a:active {
-    color: lightgray;
     }
 
 // header.component.html //////////////////////////////////////////////////
@@ -348,20 +364,41 @@ a:active {
     </mat-toolbar>
 
 // header.component.ts /////////////////////
+import { EventEmitter, Output } from '@angular/core';
+
 export class HeaderComponent implements OnInit {
    
- 
+ @Output() sidenavToggle = new EventEmitter<void>();
 	
   constructor() {}
   ngOnInit() {
     
   }
+	
 	onToggleSidenav() {
 	  
+		this.sidenavToggle.emit();
 	}
 }
 
+<!-- app.component.html -->
 
+<mat-sidenav-container>
+  <mat-sidenav #sidenav
+                role="navigation">
+    <app-sidenav-list (closeSidenav)="sidenav.close()"
+                      ></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header (sidenavToggle)="sidenav.toggle()"
+                ></app-header>
+    
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  <mat-sidenav-content>
+</mat-sidenav-container>
+    
 
 
 
