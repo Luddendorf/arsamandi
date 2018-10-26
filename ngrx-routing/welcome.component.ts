@@ -1,3 +1,13 @@
+
+// app.component.ts ///////////////////////////////////
+export class AppComponent {
+  
+  @ViewChild('sidenav')
+
+  openSidenav = false;
+}
+
+
 // welcome.component.html /////////////////////////////////////////////////
 
 
