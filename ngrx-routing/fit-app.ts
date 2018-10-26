@@ -1,5 +1,5 @@
 // signup.component.html ///////////////////////////////////////////
-
+https://coub.com/view/1gsicg
 
 <form fxLayout="column"
       fxLayoutAlign="center center"
@@ -194,3 +194,182 @@ export class AppComponent {
     
   }
 }
+
+
+<mat-drawer-container>
+<
+/////////////////////////////////////////////////////////////////////
+
+<!-- app.component.html -->
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav
+                role="navigation">
+    <p>I am a denav!</p>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button (click)="sidenav.toggle()"
+            >Show sidenav</button>
+    
+    <mat-toolbar color="primary">
+      <div fxHide.gt-xs>
+        <button mat-icon-button
+                (click)="sidenav.toggle()">
+         <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div><a routerLink="/">LOGO</a></div>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end"
+           fxHide.xs>
+        <ul fxLayout class="navigation-items"
+            fxLayoutGap="10px">
+          <li><a routerLink="/signup">Signup</a></li>
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="training">Training</a></li>
+        </ul>
+      </div>
+    </mat-toolbar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  <mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- styles.css -->
+    html, body {
+     font-family: 'Roboto', sans-serif;
+     height: 100%;
+    }
+    
+    body {
+      margin: 0;
+      height: 100%;
+    }
+    
+<!-- app.component.css -->
+    
+ mat-sidenav-container,
+ mat-sidenav-content,
+ mat-sidenav {
+    height: 100%;
+ }
+    
+mat-sidenav {
+    width: 250px;
+    }
+ 
+ 
+
+// ng generate component navigation/toolbar --module app.module ///////////
+
+
+//ng generate component navigation/sidenav-list --module app.module //////////
+// sidenav-list.component.html //////////////////////////////////////////////
+
+ <mat-nav-list>
+      <a mat-list-item routerLink="/signup"
+         (click)="sidenav.close()">
+        <mat-icon>face</mat-icon>
+        <span class="nav-caption">Signup</span>
+      </a>
+      <a mat-list-item routerLink="/login"
+         (click)="sidenav.close()">
+        <mat-icon>input</mat-icon>
+        <span class="nav-caption"></span>
+      </a>
+      <a mat-list-item routerLink="/training"
+         (click)="sidenav.close()">
+        <mat-icon>fitness_center</mat-icon>
+        <span class="nav-caption">Training</span>
+      </a>
+      <mat-list-item>
+        <button mat-icon-button
+                (click)="sidenav.close()">
+          <mat-icon>eject</mat-icon>
+          <span class="nav-caption">Logout</span>
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+
+// sidenav-list.component.css /////////////////////////////////////////////
+
+a {
+    text-decoration: none;
+    color: white;
+    }
+ 
+a:hover,
+a:active {
+    color: lightgray;
+    }
+
+.navigation-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+
+.nav-caption {
+    display: inline-block;
+    padding-left: 6px;
+    }
+
+// header.component.css //////////////////////////////////////////////////
+a {
+    text-decoration: none;
+    color: white;
+    }
+ 
+a:hover,
+a:active {
+    color: lightgray;
+    }
+
+// header.component.html //////////////////////////////////////////////////
+
+    <mat-toolbar color="primary">
+      <div fxHide.gt-xs>
+        <button mat-icon-button
+                (click)="onToggleSidenav()">
+         <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div><a routerLink="/">LOGO</a></div>
+      <div fxFlex fxLayout fxLayoutAlign="flex-end"
+           fxHide.xs>
+        <ul fxLayout class="navigation-items"
+            fxLayoutGap="10px">
+          <li><a routerLink="/signup">Signup</a></li>
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="training">Training</a></li>
+          <li><a>Logout</a></li>
+        </ul>
+      </div>
+    </mat-toolbar>
+
+// header.component.ts /////////////////////
+export class HeaderComponent implements OnInit {
+   
+ 
+	
+  constructor() {}
+  ngOnInit() {
+    
+  }
+	onToggleSidenav() {
+	  
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
