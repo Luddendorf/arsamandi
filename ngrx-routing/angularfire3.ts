@@ -158,3 +158,58 @@ export class PastTrainsComponent implements OnInit, AfterViewInit,
 	            [value]="exer.id">
 	</mat-option>
 </mat-select>
+
+
+//////////////////  REPEAT ///////////////////////////////////////////
+// training.service.ts //////////////////////////////////////
+
+export class TrainingService {
+
+  finishedExersChanged = new Subject<Exercise[]>();
+
+
+
+  fetCompletedOrCancelledExers() {
+
+    this.db.collection('finishedExers').valueChanges()
+       .subscribe((exers: Exercise[]) => {
+        
+        this.finishedExersChanged.next(exers);
+       });
+  }
+
+  startExer(selectedId: string) {
+
+    /* this.myDB.doc('availableExers/' + selectedId).update({
+       lastSelected: new Date()
+    }); */
+
+    this.runningExer = this.availableExers.find(
+      exer => exer.id === selectedId
+    );
+    this.exerChanged.next({...this.runningExer});
+  }
+
+
+}
+
+// past-trains.component.ts ///////////////////////////////////////
+export class PastTrainsComponent {
+
+  private exersChangedSubscription: Subscription;
+
+  ngOnInit() {
+   
+   this.exersChangedSubscription = 
+    this.trainService.finishedExersChanged
+      .subscribe((exers: Exercise[]) => {
+
+        this.dataSource.data = exers;
+      });
+
+    this.trainService.fetchCompletedOrCancelledExers()
+  }
+
+  ngOnDestroy() {
+    this.exersChangedSubscription.unsubscribe();
+  }
