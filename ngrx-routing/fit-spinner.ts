@@ -300,3 +300,24 @@ export class AuthService {
  fetchExers() {
   this.trainService.fetchAvailableExers();
  }
+
+<!-- login.component.html -->
+<button *ngIf="!isLoading"></button>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<!-- new-train.component.html -->
+<mat-form-field *ngIf="!isLoading && exers">
+
+</mat-form-field>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<mat-card-actions fxLayoutAlign="center" *ngIf="!isLoading">
+  <button *ngIf="exers"
+	       type="submit"
+				  [disabled]="f.invalid">Start</button>
+	<button *ngIf="!exers"
+	       type="button"
+				 (click)="fetchExers()">Fetch Again</button>
+</mat-card-actions>
+
+
