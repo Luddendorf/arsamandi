@@ -230,3 +230,73 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.loadingSubs.unsubscribe();
   }
 }
+
+
+// ui.service.ts ///////////////////
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+
+@Injectable()
+export class UIService {
+
+  constructor(private snackbar: MatSnackBar) {}
+
+  showSnackbar(message, action, duration) {
+    
+    this.snackbar.open(message, action, {
+      duration: duration
+    });
+  }
+}
+
+// auth.service.ts //////////////////////
+export class AuthService {
+
+  registerUser() {
+    
+  .catch(error => {
+    
+    this.uiService.showSnackbar(error.message, null, 3000);
+  });
+    
+  }
+
+  loginUser() {
+
+   .catch(error => {
+
+     this.uiService.showSnackbar(error.message, null, 3000);
+   });
+  }
+
+}
+
+// training.service.ts //////////////////////////////////
+ .subscribe((exers: Exercise[]) => {
+   
+   this.exersChanged.next([...this.availableExers]);
+ }, error => {
+   
+   this.uiService.loadingStateChanged.next(false);
+   this.uiService.showSnackbar('Failed, try later', null,
+     3000);
+   this.exersChanged.next(null);
+ }));
+
+ // new-train.component.ts ////////////////////////////////
+
+ ngOnInit() {
+
+   this.exerSubscription = this.trainService.exersChanged
+     .subscribe(
+       exers => {
+         this.exers - exers;
+       }
+     );
+   // this.trainService.fetchAvailableExers();
+   this.fetchExers();
+ }
+ 
+ fetchExers() {
+  this.trainService.fetchAvailableExers();
+ }
