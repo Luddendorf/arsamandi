@@ -183,3 +183,50 @@ export function reducer(state = initialState,
 
   return state;
 }
+
+// reducers.ts ///////////////////////////////////////
+export const initialState = {
+    loaded: false,
+    loading: false,
+    data: [{label: 'Eat', complete: false}]
+};
+
+
+
+export function reducer(state = initialState,
+                        action: {type: string; payload: any}) {
+    switch(action.type) {
+      case 'START_WORK': {
+       const newData = action.payload;
+       
+       const updatedData  = [...state, newData];
+       return {
+           ...state,
+           data: upDatedData
+       };
+      }
+    }
+    return state;
+}
+
+
+// app.ts ///////////////////////
+const reducers  = {
+  todos: fromStore.reducer
+};
+
+const store = new fromStore.Store(reducer);
+
+myFunction() {
+    
+  const payload = {labe: input.value, complete: false};
+    
+    store.dispatch({
+        type: 'START_WORK',
+        payload
+    });
+}
+
+// index.js ////////////////////////////////////////
+export * from './store';
+export * from './reducers';
