@@ -1,0 +1,180 @@
+
+// stock-inventory.component.ts /////////////////////////////////////
+import { Product } from '../../models/product.interface';
+
+export class StockInventoryComponent {
+    
+  products: Product[] = [
+      { "id": 1, "price": 2800, name: "MacBook Pro" },
+      { "id": 2, "price": 7600, name: "USB Adaptor" },
+      { "id": 3, "price": 6700, name: "iPod" },
+      { "id": 4, "price": 4500, name: "iPhone" },
+      { "id": 5, "price": 1800, name: "Apple Watch" }
+  ];
+
+  myForm = new FormGroup({
+    store: new FormGroup({
+      branch: new FormControl('B182'),
+      code: new FormControl('1234')
+    }),
+    selector: new FormGroup({
+      product_id: new FormControl(''),
+      quantity: new FormControl(10)
+    }),
+    stock: new FormArray([])
+  })
+
+  onSubmit() {
+    console.log('Submit', this.myForm.value);
+  }
+}
+
+
+// stock-inventory/components/stock-branch/stock-branch.component.ts////
+import { Component, Input } from '@angular/core';
+import { formGroup } from '@angular/forms';
+
+@Component({
+   selector: 'stock-branch',
+   styleUrls: ['stock-branch.component.scss'],
+   template: ` <div>
+               </div>
+ `
+})
+export class StockBranchComponent {
+   
+   @Input() parent: FormGroup;
+}
+// stock-inventory/components/stock-branch/stock-branch.component.scss//
+:host {  // host node
+    border-bottom: 1px solid #ccc;
+    margin: 0 0 20px;
+    padding: 0 0 20px;
+    display: block;
+}
+.error {
+    background: #B52D30;
+    color: #fff;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 0 0 3px 3px;
+    line-height: 1;
+    padding: 6px 10px;
+    margin-top: -1px;
+}
+
+// stock-inventory/components/stock-selector/stock-selector.component.ts//
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+import { Product } from '../../models/product.interface';
+
+@Component({
+    selector: 'stock-selector',
+    styleUrls: ['stock-selector.component.scss'],
+    template: ` <div>
+                </div>
+`
+})
+export class StockSelectorComponent {
+  
+  @Input parent: FormGroup;
+  
+  @Input products: Product[];
+}
+// stock-inventory/components/stock-selector/stock-selector.component.scss
+.stock-selector {
+    padding: 0 0 20px;
+    margin: 0 0 20px;
+    border: 1px solid #ccc;
+    position: relative;
+    
+    &__error {
+      position: absolute;
+      background: #B52D30;
+      color: #fff;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      border-radius: 3px;
+      left: 0;
+      bottom: -10px;
+      line-height: 1;
+      padding: 6px 10px;
+    }
+    
+    &:before {
+       content: ' ';
+       width: 0;
+       height: 0;
+       border-style: solid;
+       border-width: 0 5px 5px 5px;
+       border-color: transparent transparent #B52D30 transparent;
+       display: block;
+       position: absolute;
+       top: -5px;
+       left: 10px;
+    }
+}
+
+& > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    select {
+      flex: 1 0;
+    }
+    
+    button {
+      flex: 0 0 100px;
+    }
+    
+    stock-counter {
+      flex: 0 0 50px;
+      margin-left: 30px;
+    }
+}
+
+  &__name {
+      flex: 1 0;
+  }
+// stock-inventory/components/stock-products/stock-products.component.ts//
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+@Component({
+    selector: 'stock-products',
+    styleUrls: ['stock-products.component.scss'],
+    template: ` <div>
+                </div>
+`
+})
+export class StockProductsComponent {
+   
+   @Input() parent: FormGroup;
+}
+// stock-inventory/components/stock-products/stock-products.component.scss
+
+// stock-inventory.module.ts ////////////////////////////////
+import { StockBranchComponent } from './components/stock-branch/stock-branch.component';
+import { StockSelectorComponent } from './components/stock-selector/stock-selector.component';
+import { StockProductsComponent } from './components/stock-products/stock-products.component';
+
+@NgModule({
+    declarations: [
+       StockInventoryComponent,
+       StockBranchComponent,
+       StockProductsComponent,
+       StockSelectorComponent
+    ]
+})
+
+// models/product.interface.ts ///////////////////////////////////////
+export interface Product {
+  id: number,
+  price: number,
+  name: string
+}
+
