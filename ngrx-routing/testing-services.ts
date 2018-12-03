@@ -92,7 +92,7 @@ ngOnInit() {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule,
   platformBrowserDynamicTesting } from 'platform-browser-dynamic/testing';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -144,7 +144,8 @@ describe('StockInventoryComponent', () => {
        ],
        providers: [
          {provide: StockInventoryService, useClass: MockStockInventoryService}
-       ]
+       ],
+      schemas: [NO_ERRORS_SCHEMA]
      });
       
      fixture = TestBed.createComponent(StockInventoryComponent);
