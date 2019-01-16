@@ -115,6 +115,13 @@ export class ScheduleCalendarComponent implements OnChanges {
     return today;
   }
   
+ selectDay(index: number) {
+   const selectedDay = new Date(this.selectedWeek);
+    
+   selectedDay.setDate(selectedDay.getDate() + index);
+    
+   this.change.emit(selectedDay);
+ }
     
     
   ngOnChanges() {
@@ -151,6 +158,12 @@ export class ScheduleDaysComponent {
  days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
     
  @Input() selected: number;
+ 
+ @Output() select = new EventEmitter<number>();
+   
+ selectDay(index: number) {
+    this.select.emit(index);
+ }
 }
 
 // health/schedule/components/schedule-days/ schedule-days.component.scsss ////////
@@ -264,8 +277,10 @@ schedule-days.component.html -->
 <div class="days">
   <button type="button"
           class="day"
-          *ngFor="let day of days; index as i;">
-    <span>{{ day }}</span>
+          *ngFor="let day of days; index as i;"
+          (click)="selectDay(i)">
+    <span [class.active]="i === selected"
+    >{{ day }}</span>
   </button>
 </div>
 
@@ -276,7 +291,8 @@ schedule-days.component.html -->
                      (move)="onChange($event)">
   </schedule-controls>
 
-  <schedule-days [selected]="selectedDayIndex">
+  <schedule-days [selected]="selectedDayIndex"
+                 (select)="selectDay($event)">
   </schedule-days>
 
 </div>
