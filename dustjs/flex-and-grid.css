@@ -1,0 +1,219 @@
+#pond {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#pond {
+    display: flex;
+    justify-content: space-between;
+}
+
+#pond {
+    display: flex;
+    justify-content: space-around;
+}
+
+#pond {
+    display: flex;
+    align-items: flex-end;
+}
+
+#pond {
+  display: flex;
+
+justify-content: center;
+align-items: center;
+}
+
+#pond {
+  display: flex;
+align-items: flex-end;
+justify-content: space-around;
+}
+
+#pond {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#pond {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+#pond {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#pond {
+    display: flex;
+}
+
+.red {
+    order: -1;
+}
+
+.yellow {
+    align-self: flex-end;
+}
+
+// order and align-self:
+.yellow {
+    order: 1;
+    align-self: flex-end;
+}
+
+.yellow {
+    order: 1;
+    align-self: flex-end;
+}
+
+// flex-wrap:
+#pond {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#pond {
+    diplay: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#pond {
+    display: flex;
+    flex-flow: column, wrap;
+}
+
+// align-content
+#pond {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+#pond {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    align-content: center;
+}
+
+#pond {
+    
+}
+
+#garden {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+}
+
+#water {
+    grid-column-start: 3;
+}
+
+#poison {
+
+grid-column-start: 5;
+}
+
+#garden {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+}
+
+#water {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+#water {
+  grid-column-start: 5;
+  grid-column-end: 2; 
+}
+
+#water {
+  grid-column-start: 1;
+  grid-column-end: -2;
+}
+
+#water {
+  grid-column-start: 2;
+  grid-column-end: span 2;
+}
+
+#water {
+  grid-column-start: 1;
+  grid-column-end: span 5;
+}
+
+#water {
+  grid-column-start: span 3;
+  grid-column-end: 6;
+}
+
+#water {
+ grid-column: 4/6;
+}
+
+#water {
+  grid-column: 2/span 3;
+}
+
+#water {
+  grid-row-start: 3;
+  grid-row: 3/6;
+}
+
+#poison {
+  grid-column: 2/3;
+  grid-row: 5/6;
+}
+
+#water {
+  grid-row: 1/6;
+  grid-column: 2/6;
+}
+
+#water {
+
+grid-area: 1/2/4/6;
+}
+
+#water-2 {
+
+grid-area: 2/3/5/6;
+}
+
+#poison {
+    order: 1;
+    
+    order: -1;
+}
+
+grid-template-columns: repeat(8, 12.5%);
+
+grid-template-columns: 100px 3em 40%;
+
+grid-template-columns: 1fr 5fr;
+
+grid-template-columns: 50px 1fr 1fr 1fr 50px;
+
+grid-template-columns: 75px 3fr 2fr;
+
+
+#garden {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+
+grid-template-rows: 50px 0fr 0fr 0fr 1fr;
+}
+
+grid-template: 60% 40% / 200px;
+
+grid-template: 1fr 50px / 20% 80%;
