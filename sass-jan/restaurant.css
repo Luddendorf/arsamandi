@@ -1,0 +1,204 @@
+body {
+    font-size: 15px;
+}
+
+button {
+    background: #ffc600;
+    border: 0;
+    padding: 10px 20px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.top {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-areas: "hero hero cta1"
+                         "hero hero cta2"
+}
+
+.hero {
+    grid-area: hero;
+    min-height: 400px;
+    background: white url(img/taco.jpg);
+    background-size: cover;
+    background-position: 100% 100%;
+    padding: 50px;
+  /*  display: grid;
+    justify-content: start;
+    align-content: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.hero > * {
+    background: var(--yellow);
+    padding: 5px;
+}
+
+.cta {
+    background: var(--yellow);
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+}
+
+.cta p {
+   margin: 0;
+}
+
+.cta1 {
+    grid-area: cta1;
+}
+
+.cta2 {
+    grid-area: cta2;
+}
+
+.price {
+    font-size: 60px;
+    font-weight: 300;
+}
+
+/* Navigation //////////////////////////*/
+.menu ul {
+    display: grid;
+    grid-gap: 10px;
+    padding: 0;
+    margin: 20px 0;
+    list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.menu a {
+    background: var(--yellow);
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    color: var(--black);
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+[aria-controls="menu-list"] {
+    display: none;
+}
+
+/* Features ///////////////////////////////////////////////////// */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, min-max(200px, 1fr));
+}
+
+.feature {
+    background: white;
+    padding: 10px;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/responsive-START.css">
+  <title>Mexican Restaurant</title>
+ </head>
+
+ <body>
+  <div class="wrapper">
+
+	  <div class="top">
+     <header class="hero">
+       <h1>Jerry's Tacos</h1>
+       <p>Tasty Mexican Tacos</p>
+     </header>
+	   <div class="cta cta1">
+       <p class="price">$1.99</p>
+       <p>Tacos</p>
+	   </div>
+	   <div class="cta cta2">
+       <p class="price">$3.99</p>
+       <p>Enchilada</p>
+	   </div>
+   	</div>
+
+    <nav class="menu">
+     <button aria-expanded="false" aria-controls="menu-list">
+       <span class="open">☰</span>
+       <span class="close">×</span>Menu
+     </button>
+
+     <ul id="menu-list">
+      <li><a href="">Tacos</a></li>
+      <li><a href="">Beers</a></li>
+      <li><a href="">Wines</a></li>
+      <li><a href="">Desserts</a></li>
+      <li><a href="">Reservations</a></li>
+     </ul>
+
+    </nav>
+
+    <section class="features">
+     <div class="feature">
+      <span class="icon">◙</span>
+      <h3>Tacos</h3>
+      <p>Some description goes in here. Just a few words.</p>
+     </div>
+		 <div class="feature">
+      <span class="icon">◙</span>
+      <h3>Beer</h3>
+      <p>We offer dark and light beers of popular brands. Stella Artois as well.</p>
+		 </div>
+		 <div class="feature">
+      <span class="icon">◙</span>
+      <h3>Wine</h3>
+      <p>Here you can order any of 500 trademarks of wine. Red, white, rosy</p>
+		 </div>
+		 <div class="feature">
+      <span class="icon">◙</span>
+      <h3>Music</h3>
+      <p>You can order any track to play in our restaurant. We have records of all modern musicians.</p>
+		 </div>
+    </section>
+
+    <section class="about">
+      <img src="img/1.jpg" alt="Tasty Food" class="about__mockup">
+		  <div class="about__details">
+       <h2>Featured Taco</h2>
+       <p>Slim taco, easy to hold and loaded with cheese.</p>
+       <p>This is our speacial recipe.</p>
+       <button>Learn more →</button>
+		  </div>
+    </section>
+
+    <section class="gallery">
+      <h2>Photos for instagram:</h2>
+      <img src="img/2.jpg" alt="">
+    	<img src="img/3.jpg" alt="">
+      <img src="img/4.jpg" alt="">
+      <img src="img/5.jpg" alt="">
+      <img src="img/6.jpg" alt="">
+      <img src="img/7.jpg" alt="">
+      <img src="img/8.jpg" alt="">
+      <img src="img/9.jpg" alt="">
+      <img src="img/10.jpg" alt="">
+      <img src="img/0.jpg" alt="">
+      <img src="img/1.jpg" alt="">
+    </section>
+
+  </div>
+
+  <script></script>
+
+ </body>
+
+</html>
