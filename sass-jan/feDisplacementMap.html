@@ -1,0 +1,69 @@
+
+<body>
+  <svg viewBox="0 0 248 248.7">
+    <fiter id="displacementFilter">
+      <feTurbulence type="turbulence" baseFrequency="0.04"
+                   numOctaves="2" result="turbulence" />
+      <feDisplacementMap in2="turbulence" in="SourceGraphic"
+                        scale="50"  xChannelSelector="R"
+                        yChannelSelector="G"/>
+    </fiter>
+    <path style="filter: url(#displacementFilter); transform-origin:center;"
+          id="logo"
+          fill="#00AE7B" d="M124,86 c21,0">
+  </svg>
+</body>
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    overflow: hidden;
+    background: rgb(20, 20, 20);
+}
+
+svg {
+    width: 60%;
+    display: block;
+    margin: 0 auto;
+}
+
+
+
+// import anime.js first!!!!
+
+let myTimeLine = anime.timeline({
+   duration: 4000,
+   easing: 'easeInOutQuart',
+   
+});
+
+myTimeLine.add({
+    targets: 'svg',
+    keyframes: [
+        { scale: 0.3, rotate: '0deg' },
+        { scale: 0.5, rotate: '360deg' }
+    ],
+    duration: 3000
+});
+
+myTimeLine.add({
+    targets: ['#logo', 'feTurbulence', 'feDisplacementMap'],
+    baseFrequency: 0,
+    numOctaves: 0,
+    scale: 1,
+    rotate: '360deg',
+    fill: '#fff',
+    stroke: '#fff',
+    strokeWidth: 3,
+    strokeDashArray: '20, 10, 5, 4, 30, 10',
+    
+}, "-=4000");
+
+myTimeLine.add({
+   targets: 'svg',
+   scale: 0,
+   duration: 3000
+});
