@@ -1,0 +1,23 @@
+<!-- feMorphology -->
+<svg width="900" height="450" viewBox="0 0 900 450">
+ <filter id="my__outliner">
+
+  <feMorphology operator="dilate" radius="8"
+               in="SourceAlpha"
+               result="THICKNESS"/>
+
+  <feComposite operator="out" in="THICKNESS"
+              in2="SourceGraphic"></feComposite>
+
+	<feComponentTransfer>
+		<feFuncR type="discrete" tableValues=".25 .4 .5 .75 1" />
+		<feFuncG type="discrete" tableValues=".25 .4 .5 .75 1" />
+		<feFuncB type="discrete" tableValues=".25 .4 .5 .75 1" />
+	</feComponentTransfer>
+
+ </filter>
+
+ <text dx="100" dy="300" filter="url(#my__outliner)"
+       letter-spacing="10px">You create future</text>
+
+</svg>
