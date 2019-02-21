@@ -1,0 +1,84 @@
+<!-- ----------------- Lottie Web  --------------------    -->
+
+
+
+<!-- Duotone image feComponentTransfer -->
+<svg viewBox="0 0 266 400">
+  <fitler id="duotone">
+   
+   <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0
+                                     0.33 0.33 0.33 0 0
+                                     0.33 0.33 0.33 0 0
+                                     0    0    0   0 0">
+   </feColorMatrix>
+
+   <feComponentTransfer color-interpolation-filters="sRGB">
+     <feFuncR type="table" tableValues=".996078431 .984313725"></feFuncR>
+     <feFuncG type="table" tableValues=".125490196 .941176471"></feFuncG>
+     <feFuncB type="table" tableValues=".552941176 .478431373"></feFuncB>
+   </feComponentTransfer>
+  </fitler>
+
+  <feComponentTransfer color-interpolation-filters="sRGB">
+    <feFuncR type="gamma" exponent="1.5" amplitude="1.3" offset="0"></feFuncR>
+    <feFuncG type="gamma" exponent="1.5" amplitude="1.3" offset="0"></feFuncG>
+    <feFuncB type="gamma" exponent="1.5" amplitude="1.3" offset="0"></feFuncB>
+  </feComponentTransfer>
+
+  <image xlink:href="" width="100%" x="0" y="0" height="100%"
+        filter="url(#duotone)"></image>
+</svg>
+
+
+
+lottie__container {
+    margin: 0;
+    font-family: 'Montserrat';
+}
+
+
+lottie__nav {
+    width: 22%;
+    background: rgb(226, 226, 226);
+    height: 100vh;
+    
+    ul {
+        margin: 0;
+        padding-top: 20px;
+        list-style-type: none;
+        
+        li {
+          cursor: pointer;
+          font-size: 1.3em;
+          font-weight: bold;
+          text-transform: uppercase;
+          
+          svg {
+            width: 15% !important;
+            
+           #search {
+             position: relative;
+             top: 12px;
+             margin-right: 10px;
+           }
+          }
+        }
+    }
+}
+
+
+// <script src="lottie.js"></script>
+
+var lottieAnimations = bodymovin.loadAnimation({
+    container: document.getElementById('lottie__search'),
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    path: 'data.json'
+});
+
+var lottieButton = document.getElementById('lottie__search');
+
+lottieButton.addEventListener('mouseenter', function() {
+   animation.play(); 
+});
