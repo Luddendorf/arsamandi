@@ -42,7 +42,8 @@ module.exports = {
     },
     
     plugins: [
-      new webpack.HotModuleReplacementPlugin('[name].css', {allChunks: true, disable: process.env.NODE_ENV == 'development'})  
+      new webpack.HotModuleReplacementPlugin(),
+      new ExtractTextPlugin('[name].css', {allChunks: true, disable: process.env.NODE_ENV == 'development'})
     ],
     
     devServer: {
