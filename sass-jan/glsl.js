@@ -17,8 +17,11 @@ void main() {
     float p = fract(progress);
     
     float p1 = p - 1.0;
-    
+    // to make distortions:
+    float dx1 = p * 0.8;
+    // TEXTURE 1 : ////////////////////////////////////////////////////////////
     vec4 tex1 = texture2D(texture1, vec2(vUv1.x + p, vUv1.y));
+    
     
     // float bounds = step(0.0, p) * uv + step(0.0, -p) * (1.0, -uv);
     float bounds = step(0.0, 1.0 - (uv.x/2.0 + p)) * step(0.0, uv.x/2 + p);
@@ -26,10 +29,14 @@ void main() {
    // gl_FragColor = vec4(uv, 0.0, 1.0);
    vec4 fcolor = tex1 * bounds;
     
-   // we make second texture:
+    
+   // WE MAKE SECOND TEXTURE: //////////////////////////////////////////
    vec4 tex2 = texture2D(texture2, vec2(vUv1.x + p, vUv1.y));
     
-   float bounds = step(0.0, 1.0 - (uv.x/2.0 + p)) * step
+   float bounds1 = step(0.0, 1.0 - (uv.x/2.0 + p1)) * step(0.0, uv.x/2 + p);
+   
+   fcolor += tex2*bounds1;
+   
     
    gl_FragColor = fcolor;
 }
