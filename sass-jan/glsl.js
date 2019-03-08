@@ -46,10 +46,10 @@ void main() {
     
    float vert1 = abs(p1*0.3);
     
-   dx2 -= step(0.2 - vert1, position.x / 2.0) * 0.3 * p1;
-   dx2 -= step(0.4 - vert1, position.x / 2.0) * 0.3 * p1;
-   dx2 += step(0.6 - vert1, position.x / 2.0) * 0.3 * p1;
-   dx2 += step(0.8 - vert1, position.x / 2.0) * 0.3 * p1;
+   dx2 -= step(0.2 + vert1, position.x / 2.0) * 0.3 * p1;
+   dx2 -= step(0.4 + vert1, position.x / 2.0) * 0.3 * p1;
+   dx2 += step(0.6 + vert1, position.x / 2.0) * 0.3 * p1;
+   dx2 += step(0.8 + vert1, position.x / 2.0) * 0.3 * p1;
    
    // we replace p1 with dx2! :
    vec4 tex2 = texture2D(texture2, vec2(vUv1.x + dx2, vUv1.y));
