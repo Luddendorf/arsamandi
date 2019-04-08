@@ -1,3 +1,5 @@
+I am JavaScript, Angular 4/6, Angular Material, Vue.js, Vuetify, D3.js, jQuery, lodash.js, anime.js and so on, GSAP, HTML, HTML5 canvas, CSS3, flexboxes, CSS-grids,SASS, postprocessors, SVG-graphics, SVG-animations. Of course Gulp, Git, NPM.
+
 module Memento {
 
   class PersonMemento {
@@ -185,3 +187,7 @@ order.getState().shipOrder();
 order.getState().cancelOrder();
 
 console.log('Order state: ' + (<any> order.getState()).constructor.name);
+
+
+
+
