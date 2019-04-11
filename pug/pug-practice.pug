@@ -1,0 +1,316 @@
+doctype html
+html(lang="en-En")
+  head
+  body
+    include modules/header
+    h1 hello people!
+    p Apple pie.
+
+// modules/ header.pug
+header
+  .header
+    nav
+      ul.header__list
+        li
+          a(href="#") link 1
+        li
+          a(href="#") link 2
+        li
+          a(href="#") link 3
+// static.pug pug -w *.pug
+doctype html
+html(lang="en-EN")
+  head
+  body
+    include modules/header
+    h1 Static page
+    p The story has become a legend
+
+// layout/ main.pug - main template
+doctype html
+html(lang="en-EN")
+  head
+    link(rel="stylesheet" href="main.css")
+    title
+      block title
+  body
+    include ../modules/header
+    block content
+
+// main.css 
+a {
+  color: orangered;
+}
+
+// page.pug //////////////////////////////////////////
+doctype html
+html(lang="en-EN")
+  head
+    link(rel="stylesheet" href="main2.css")
+    title
+      block title
+    body
+      block content
+
+// main2.css ////////////////////
+h1 { color: blue; }
+
+
+// index.pug
+extends layout/main
+
+block title | Main page
+
+block content
+  h1 Great story
+  p We begin our journey
+
+// static.pug ///////////////////////////
+extends layout/page
+
+block title | Main page
+
+block content
+  h1 Story
+  p Some long text
+
+// index.pug ///////////////////////////////////////////////
+// pub -w ./ -o ./html -P
+doctype html
+html
+  head
+  body
+    h1 The beginning of the long road.
+    p.
+      This is a long talk
+      we can have
+    ul
+      li This is item 1
+      li This is item 2
+// index.pug ///////////////////////////////////////////
+// pub -w ./ -o ./html -P
+doctype html
+html
+  head
+  body
+    h1#pageTitle The main page
+    p.header__main.
+      Here is some long words
+      we just cannot stop typing
+    p.header__main.
+      Story of rabbit and fox
+    .display-box
+    #hero-avatar
+
+    input(type="password" name="loginpassword" data-js=`${1 > 2 ? "OK" : "NOT OK"}`)
+
+    - const myClasses = ["main__header", "main__optional", "main__blue"];
+    div.button__blue(class=myClasses);
+
+    - const myStyles = {"color": "green", "background-color": "blue"};
+    div(style=myStyles);
+
+    - const myAttrs = {"src": "myPhoto.png", "alt": "Photo 1"};
+    img&attributes(myAttributes)
+
+
+    input(type="text" disabled=true)
+
+// index.pug USING CSS ///////////////////////////////////////////////
+doctype html
+html
+  head
+    link(rel="stylesheet" href="style.css")
+    style.
+      p {
+        color: blue;
+        text-decoration: underline;
+      }
+  body
+    p(style="text-align: center; text-transform: uppercase;") This is an interesting story
+
+    - const basicStyles = {"text-align": "center", "text-transform": "uppercase"};
+    p(style=basicStyles) This is our show.
+
+    each n in [1, 2, 3, 4, 5];
+
+doctype html
+html
+  head
+  body
+    - const names = ["Bob", "Den", "Ted"]
+    each n, i in [1, 2, 3]
+      p= "Number " + i + " has value " + n
+    
+    each n, i in names
+      p= i + " - " + n
+
+    - const grades = {"Web Dev": 85, "Soft Design": 76};
+    each grade, index in grades
+      p=grade + " - " + index
+
+    -const soldiers = {"Karl": 100, "Gustav": 85};
+    for person, i in soldiers
+      p=person + " - " + i
+    else
+      strong "No info here!"
+
+// index.pug //////////////////////////////////////////////////
+doctype html
+  html
+    head
+      title Conditionals in Pug
+    body
+      h2 My Web Application
+      - let user = { name: "Bob", loggedIn: true, lastLogin: 6 };
+
+      if user.loggedIn
+        p
+          | Welcome back,
+          strong #{ user.name }
+      else if user.lastLogin < 10
+        p Your last login was #{ user.lastLogin } minutes ago.
+        p 
+          a(href="/login") Log in again
+      else
+        a(href="/login") Log in
+
+      - let puppy = { name: "Sam", isDog: true, lastLogin: 5 };
+      if puppy.lastLogin <= 5
+        p 
+          | Come here, #{ puppy.name }
+      else
+        a(href="/login") Log in
+
+// index.pug //////////
+doctype html
+  html
+    head
+      title Case Statement
+    body
+      // orderStatus => Pending || In_Transit || Completed
+      - const orderStatus = 'Pending'
+
+      case orderStatus
+        when 'Pending'
+          p Your order has been placed
+        when 'In_Transit'
+          p Your order is in transit
+        when 'Completed'
+          p Your order has been completed
+        default
+          p Sorry, we don't know what happened with your order
+
+// index.pug INCLUDE STATEMENT
+mixin comment(commentData)
+  .comment
+    if commentData.postedByAdmin
+      em (Posted by Admin)
+    .date= commentData.date
+    .author= commentData.author
+    .text= commentData.text
+
+doctype html
+html
+  head
+    title Include in pug
+    style.
+      .comment {
+        font-family: sans-serif;
+        line-height: 1.5;
+        padding: 10px;
+        border: 1px solid #555;
+        width: 250px;
+      }
+      .date {font-size: 85%; text-align: right;}
+      .author {font-size: 110%; font-weight: bold;}
+      .text{font-size: 100%;}
+
+  body
+    h1 Company Name
+    nav
+      a(href="index.html") Home
+      a(href="about.html") About
+      a(href="") Contact us
+    include includes/nav
+
+    .comment
+      .date 04-02-2018
+      .author Simpson
+      .text I was intrigued!
+
+    - const c = { date: '04-02-2018', author: 'Bob', text: 'Was good', postedByAdmin: true }
+    +comment(c);
+    - const d = { date: '05-01-2017', author: 'Sam', text: 'Let\'s go' }
+    +comment(d)
+
+
+// about.pug
+doctype html
+html
+  head
+    title Include in pug
+  body
+    include includes/nav
+    h3 About Us
+
+
+
+// includes/  nav.pug
+h1 Company Name
+nav
+  a(href="index.html") Home
+  a(href="about.html") About us
+  a(href="gallery.html") Gallery
+  a(href="#") Contact Us
+
+function counter() {
+  for (var i = 0; i < 10; i++) {
+  console.log(i);
+ }
+}
+counter();
+console.log('After loop', i);
+
+// IIFE
+"use strict";
+var i = 9999;
+(function() {
+  for(i = 0; i < 10; i++) {
+    console.log(i);
+  }
+})();
+console.log('After loop', i);
+
+// LET ///////////////////////////////////////////
+"use strict";
+var i = 9999;
+for(let i = 0; i < 10; i++) {
+  console.log(i);
+}
+
+if(true) {
+  let i = 88888;
+}
+console.log('After loop', i);
+console.log('After all', i);
+
+// CONST ////////////////////////////////
+"use strict";
+let x = 1;
+x = 2;
+console.log(x);
+
+const y = {
+  a: 5
+}
+
+y.a = 6; // allowed
+x = {    // not allowed
+  z: 9
+}
+console.log(x);
+
+const b = 1;
+
+console.log(b);
